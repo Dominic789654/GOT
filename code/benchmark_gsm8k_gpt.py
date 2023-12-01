@@ -11,9 +11,12 @@ import random
 from api_pool import api_pool
 key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")     
-openai.api_base = "https://api.ohmygpt.com/v1"
 
-# ! export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+openai.api_base = "https://aigptx.top/"
+
+OUTPUT_PATH = "./outputs/cot/gpt_3.5_turbo_0301_original_cot.txt"
+
+
 gsm8k = load_dataset('gsm8k', 'main')
 gsm8k_test = gsm8k['test']
 
@@ -147,25 +150,28 @@ def extract_ans(ans_model):
 
 
 def process_question(q, a, prompt_original):
-    prompt_q = prompt_original + '\n\nQuestion: ' + q + '\n'
-    response = completion_with_backoff(
-        model="gpt-3.5-turbo-0301",
-        messages=[
-            {"role": "system", "content": "Follow the given examples and answer the following question."},
-            {"role": "user", "content": prompt_q},
-        ],
-        temperature=0,
-        # stop='\n\n',
-        top_p=0.9
-    )
-    ans_model = response['choices'][0]['message']['content']
-    ans_, residual = extract_ans(ans_model)
-    return f'Question:\n{q}\nA_model:\n{ans_}\nA_gold:\n{a}\n\n'
-
+    try:
+        prompt_q = prompt_original + '\n\nQuestion: ' + q + '\n'
+        response = completion_with_backoff(
+            model="gpt-3.5-turbo-0301",
+            messages=[
+                {"role": "system", "content": "Follow the given examples and answer the following question."},
+                {"role": "user", "content": prompt_q},
+            ],
+            temperature=0,
+            # stop='\n\n',
+            top_p=0.9
+        )
+        ans_model = response['choices'][0]['message']['content']
+        ans_, residual = extract_ans(ans_model)
+        return f'Question:\n{q}\nA_model:\n{ans_}\nA_gold:\n{a}\n\n'
+    except Exception as e:
+        # Print the error message if an exception occurs
+        error_message = str(e)
+        return f'An error occurred: {error_message}'
 
 
 def main():
-    output_path = "./outputs/cot/gpt_3.5_turbo_0301_original_cot.txt"
     prompt_original = open('./prompt_lib/prompt_original.txt').read()
 
     test_questions =  gsm8k_test['question']
@@ -175,10 +181,10 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
         results = list(tqdm(executor.map(process_question, test_questions, test_ans_gold, [prompt_original]*len(test_questions)), total=len(test_questions)))
 
-    with open(output_path, 'w') as fd:
+    with open(OUTPUT_PATH, 'w') as fd:
         for result in results:
             fd.write(result)
 
 if __name__ == '__main__':
     main()
-_, _, _ = parse_pred_ans(output_path)
+_, _, _ = parse_pred_ans(OUTPUT_PATH)
