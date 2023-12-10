@@ -10,7 +10,7 @@ from api_pool import api_pool
 key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")     
 
-OUTPUT_PATH = "./outputs/cot/gpt_3.5_turbo_0301_original_cot.txt"
+OUTPUT_PATH = "./cot/gpt_3.5_turbo_0301_original_cot.txt"
 
 
 gsm8k = load_dataset('gsm8k', 'main')
@@ -33,7 +33,7 @@ def completion_with_backoff(**kwargs):
         "Authorization": 'Bearer ' + api_key,
     }
     result = requests.post(
-        "https://apic.ohmygpt.com/v1/chat/completions",
+        "https://api.ohmygpt.com//v1/chat/completions",
         headers=headers,
         json=params,
         stream=False
@@ -183,7 +183,7 @@ def main():
     test_ans_gold =  gsm8k_test['answer']
 
     # 使用 ThreadPoolExecutor
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
         results = list(tqdm(executor.map(process_question, test_questions, test_ans_gold, [prompt_original]*len(test_questions)), total=len(test_questions)))
 
     with open(OUTPUT_PATH, 'w') as fd:
