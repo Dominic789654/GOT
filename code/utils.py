@@ -7,7 +7,7 @@ from tqdm import trange
 
 key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")
-TEMPERATURE = 0.7
+TEMPERATURE = 0.0
 
 @retry(
     wait=wait_chain(

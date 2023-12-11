@@ -1,0 +1,80 @@
+Question: Tina makes $18.00 an hour. If she works more than 8 hours per shift, she is eligible for overtime, which is paid by your hourly wage + 1/2 your hourly wage. If she works 10 hours every day for 5 days, how much money does she make?
+Tina makes $18.00 an hour for the first 8 hours of each day, and she gets overtime for anything beyond 8 hours. 
+For 8 hours a day at $18.00 an hour, she makes: 8 hours/day * $18.00/hour = $144.00/day. 
+For the overtime, she works an extra 2 hours a day (since she works 10 hours and the first 8 are not considered overtime). 
+Overtime is paid at her hourly wage plus half her hourly wage, which is $18.00 + $9.00 = $27.00 per hour. 
+So for 2 hours of overtime each day, she makes: 2 hours/day * $27.00/hour = $54.00/day. 
+Therefore, in one day, she makes: $144.00/day + $54.00/day = $198.00/day. 
+Over the course of 5 days, she would make: 5 days * $198.00/day = $990.00. 
+So, Tina would make $990.00 if she worked 10 hours a day for 5 days. 
+So the answer is 990.
+
+Question: Tobias is buying a new pair of shoes that costs $95. He has been saving up his money each month for the past three months. He gets a $5 allowance a month. He also mows lawns and shovels driveways. He charges $15 to mow a lawn and $7 to shovel. After buying the shoes, he has $15 in change. If he mows 4 lawns, how many driveways did he shovel?
+He has $15 left after buying the shoes that cost $95, which means he had $95 + $15 = $110 in total before the purchase. 
+Next, we calculate the amount he earned from his allowance. 
+He has been saving for three months, getting $5 each month, so from his allowance he earned 3 * $5 = $15. 
+Then we know he mowed 4 lawns and he charges $15 per lawn, so from mowing lawns, he earned 4 * $15 = $60. 
+Let’s sum up the money he earned from his allowance and from mowing lawns: $15 (allowance) + $60 (mowing) = $75. 
+Now, let’s subtract the total amount of money earned from allowance and mowing from his total amount of money before buying the shoes to find out how much he earned from shoveling driveways: $110 (total before buying shoes) - $75 (earned from allowance and mowing) = $35. 
+As he charges $7 to shovel a driveway, we divide the total earned from shoveling by the charge per driveway to find out the number of driveways he shoveled: $35 / $7 = 5 driveways. 
+So the answer is 5.
+
+Question: Brennan was researching his school project and had to download files from the internet to his computer to use for reference. After downloading 800 files, he deleted 70% of them because they were not helpful. He downloaded 400 more files but again realized that 3/5 of them were irrelevant. How many valuable files was he left with after deleting the unrelated files he downloaded in the second round?
+First, let’s figure out how many files Brennan kept after the first download
+He initially downloaded 800 files, but he deleted 70% of them. 
+So, the number of files he kept is 30% of the original 800. 
+To find this, we multiply 800 by 0.30 (because 30% is the same as 0.30 when expressed as a decimal): 800 * 0.30 = 240 files. 
+Then, Brennan downloaded 400 more files. 
+However, he realized that 3/5 of them were not useful. 
+So, he only kept 2/5 of the new files (because 1 - 3/5 = 2/5). 
+To find this number, we multiply 400 by 2/5: 400 * 2/5 = 160 files. 
+So after deleting the unrelated files he downloaded in the second round, he was left with 240 files from the first download and 160 files from the second download: 240 + 160 = 400 files. 
+Therefore, Brennan was left with 400 valuable files after deleting all the unrelated files. 
+So the answer is 400.
+
+Question: Noah is a painter. He paints pictures and sells them at the park. He charges $60 for a large painting and $30 for a small painting. Last month he sold eight large paintings and four small paintings. If he sold twice as much this month, how much is his sales for this month?
+First, let’s calculate how much Noah earned last month. 
+From selling large paintings, he earned 8 (number of large paintings) * $60 (price per large painting) = $480. 
+From selling small paintings, he earned 4 (number of small paintings) * $30 (price per small painting) = $120. 
+So, his total sales for last month were $480 (from large paintings) + $120 (from small paintings) = $600. 
+This month, he sold twice as many paintings. 
+So his sales this month were 2 * $600 (last month’s sales) = $1200. 
+Therefore, Noah’s sales for this month is $1200. 
+So the answer is 1200.
+
+Question: Betty is saving money for a new wallet which costs $100. Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her parents. How much more money does Betty need to buy the wallet?
+Her parents give her $15, and her grandparents give her twice that amount, which is 2 * $15 = $30. 
+So, the total amount of money she has after receiving money from her parents and grandparents is $50 (her own money) + $15 (from parents) + $30 (from grandparents) = $95. 
+Now, to find out how much more money she needs, we subtract the total amount of money she has from the cost of the wallet: $100 (cost of the wallet) - $95 (total amount of money she has) = $5. 
+Therefore, Betty needs $5 more to buy the wallet. 
+So the answer is 5.
+
+Question: Julie is reading a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?
+Yesterday, Julie read 12 pages. 
+Today, she read twice as many pages as she did yesterday, so she read 2 * 12 = 24 pages today. 
+So far, she has read 12 (yesterday’s pages) + 24 (today’s pages) = 36 pages in total. 
+The book is 120 pages long, so she still has 120 (total pages) - 36 (read pages) = 84 pages left to read. 
+She wants to read half of the remaining pages tomorrow, so she should read 84 (remaining pages) / 2 = 42 pages. 
+Therefore, Julie should read 42 pages tomorrow. 
+So the answer is 42.
+
+Question: It takes Roque two hours to walk to work and one hour to ride his bike to work. Roque walks to and from work three times a week and rides his bike to and from work twice a week. How many hours in total does he take to get to and from work a week with walking and biking?
+First, let’s calculate how much time Roque spends walking to work and back home. 
+Each walk takes two hours and he walks both ways, so each day he spends 2 (hours per walk) * 2 (there and back) = 4 hours walking. 
+He walks three times a week, so he spends 4 (hours per day) * 3 (days per week) = 12 hours per week walking. 
+Next, let’s calculate how much time Roque spends riding his bike to work and back home. 
+Each bike ride takes one hour, and he rides both ways, so each day he spends 1 (hour per ride) * 2 (there and back) = 2 hours biking. 
+He rides his bike twice a week, so he spends 2 (hours per day) * 2 (days per week) = 4 hours per week biking. 
+Adding these together, Roque spends 12 (hours per week walking) + 4 (hours per week biking) = 16 hours getting to and from work each week. 
+So, Roque spends 16 hours in total getting to and from work each week. 
+So the answer is 16.
+
+Question: James writes a 3-page letter to 2 different friends twice a week. How many pages does he write a year?
+Each letter James writes is 3 pages long. 
+He writes to 2 different friends, so that’s 3 (pages per letter) * 2 (letters) = 6 pages. 
+Since he writes these letters twice a week, in a week, he writes 6 (pages per letter writing session) * 2 (letter writing sessions per week) = 12 pages. 
+To calculate how many pages he writes in a year, we have to multiply the number of pages he writes in a week by the number of weeks in a year. 
+There are 52 weeks in a year, so James writes 12 (pages per week) * 52 (weeks in a year) = 624 pages in a year. 
+So, James writes 624 pages in a year. 
+So the answer is 624.
+
