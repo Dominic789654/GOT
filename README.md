@@ -10,9 +10,17 @@ The course is taught by Prof. [Luo Qiong](https://www.cse.ust.hk/~luo/).
 
 2. Insert your ChatGPT API key into the `./code/api_pool.py` file. If you need an API key to test the code, please contact LIU Xiang.
 
-3. Modify the `run.sh` script to select the experiment you wish to test.
+3. Modify the `run.sh` script to select the experiment you wish to test, be careful change the `TEMPERATURE` parameter to `0.7` when you want to test Self-Consistency method.
 
+## Expect Result
+| Method    | Accuracy | Prompt Tokens | Completion Tokens | Total Tokens | Price  |
+|-----------|----------|---------------|-------------------|--------------|--------|
+| CoT       | 0.7551   | 947,966       | 132,509           | 1,080,475    | $1.687 |
+| SC        | 0.8112   | 9,479,660     | 1,330,856         | 10,810,516   | $16.88 |
+| ToT       | 0.4931   | 1,481,438     | 159,388           | 1,640,826    | $2.541 |
+| ResPrompt | 0.8029   | 2,940,975     | 202,738           | 3,143,713    | $4.817 |
 
+**Note**: The result for ToT only for first 146 question. 
 
 # Mini Survey introduction
 ## Title 
