@@ -3,10 +3,11 @@ import re
 from tenacity import retry, stop_after_attempt, wait_chain, wait_fixed
 import random
 from api_pool import api_pool
+from tqdm import trange
 
 key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")
-TEMPERATURE = 0.0
+TEMPERATURE = 0.7
 
 @retry(
     wait=wait_chain(
@@ -31,18 +32,61 @@ def completion_with_backoff(params):
 
 def test_answer(pred_str, ans_str):
     pattern = "\d*\.?\d+"
-    # pattern = '-?\d+\.?\d*'
     pred_str = pred_str.replace(",", "")
     pred = re.findall(pattern, pred_str)
     if len(pred) >= 1:
-        # print(pred_str)
         pred = pred[-1]
         gold = re.findall(pattern, ans_str)
-        # print(ans_str)
         gold = gold[-1]
+        # print(pred, gold)
         return pred == gold
     else:
         return False
+
+
+def parse_pred_ans_SC(filename):
+    with open(filename) as fd:
+        lines = fd.readlines()
+    mf_ans, a = None, None  # mf_ans for Most Frequent Answer
+    num_q, acc = 0, 0
+    current_mode = "none"
+    questions = []
+    ans_most_freq = []
+    ans_gold = []
+    for l in lines:
+        if l.startswith("Question:"):
+            if mf_ans is not None and a is not None:
+                questions.append(q)
+                ans_most_freq.append(mf_ans)
+                ans_gold.append(a)
+                if test_answer(mf_ans, a):
+                    acc += 1
+            current_mode = "q"
+            q = l
+            num_q += 1
+        elif l.startswith("Most Frequent Answer:"):
+            current_mode = "mf_ans"
+            mf_ans = l
+        elif l.startswith("A_gold:"):
+            current_mode = "a"
+            a = l
+        else:
+            if current_mode == "q":
+                q += l
+            elif current_mode == "mf_ans":
+                mf_ans += l
+            elif current_mode == "a":
+                a += l
+            else:
+                raise ValueError(current_mode)
+
+    questions.append(q)
+    ans_most_freq.append(mf_ans)
+    ans_gold.append(a)
+    if test_answer(mf_ans, a):
+        acc += 1
+    print("num_q %d correct %d ratio %.4f" % (num_q, acc, float(acc / num_q)))
+    return questions, ans_most_freq, ans_gold
 
 
 def parse_pred_ans(filename):
@@ -111,10 +155,45 @@ def extract_ans(ans_model):
     return ans, residual
 
 
+def process_question_multiple_times(q, a, prompt_original, num_attempts=10):
+    answers = []
+    total_tokens_count = 0
+    prompt_tokens_count = 0
+    completion_tokens_count = 0
+    for _ in trange(num_attempts):
+        result, tokens_total, tokens_prompt, tokens_completion = process_question(q, a, prompt_original)
+        # Extract the answer from the result
+        ans = result.split("\nA_model:\n")[1].split("\nA_gold:\n")[0]
+        pattern = "\d*\.?\d+"
+        pred_ans = ans.replace(",", "")
+        pred = re.findall(pattern, pred_ans)
+        if len(pred) >= 1:
+            pred = pred[-1]
+        else:
+            pred = '0'
+        answers.append(pred)
+
+        # Accumulate token counts
+        total_tokens_count += tokens_total
+        prompt_tokens_count += tokens_prompt
+        completion_tokens_count += tokens_completion
+
+    # Find the most frequent answer
+    most_frequent_ans = max(set(answers), key=answers.count)
+    return (
+        f"Question:\n{q}\nMost Frequent Answer:\n{most_frequent_ans}\nA_gold:\n{a}\n\n",
+        total_tokens_count,
+        prompt_tokens_count,
+        completion_tokens_count
+    )
+
+
+            
 def process_question(q, a, prompt_original):
     try:
         prompt_q = prompt_original + "\n\nQuestion: " + q + "\n"
         # print(prompt_q)
+        # print("Temperature: ", TEMPERATURE)
         response = completion_with_backoff(
             {
                 "model": "gpt-3.5-turbo-0301",
