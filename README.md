@@ -1,6 +1,7 @@
 # Repository for Project of DSAA6000D
 
 ![HKUSTgz](./figs/hkust-logo.png)  
+GitHub link: https://github.com/Dominic789654/GOT  
 This repo is the code implementation of the **HKUSTgz DSAA6000D Graph Processing and Analytics**.  
 The course is taught by Prof. [Luo Qiong](https://www.cse.ust.hk/~luo/).
 
