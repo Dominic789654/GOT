@@ -27,6 +27,7 @@ import time
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
 import numpy as np
+import random
 
 key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")
@@ -53,15 +54,8 @@ def completion_with_backoff(params):
         json=params,
         stream=False,
     )
+    print(result.json())
     return result.json()
-
-
-
-# @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
-# def completion_with_backoff(**kwargs):
-#     response = openai.ChatCompletion.create(**kwargs)
-#     return response
-
 
 def openai_api_call_handler(prompt, max_tokens, temperature, k=1, stop=None):
     while True:
@@ -71,23 +65,9 @@ def openai_api_call_handler(prompt, max_tokens, temperature, k=1, stop=None):
                 response = completion_with_backoff(
                     {
                         "model": api_model,
-                        "messages": [
-                            {
-                                "role": "system",
-                                "content": "Follow the given examples and answer the following question.",
-                            },
-                            {"role": "user", "content": messages},
-                        ],
+                        "messages": messages,
                         "temperature": temperature,
                     }
-
-
-
-                    # model=api_model,
-                    # messages=messages,
-                    # max_tokens=max_tokens,
-                    # temperature=temperature,
-                    # # n=k
                 )
             else:
                 response = completion_with_backoff(
@@ -125,7 +105,7 @@ def generate_text(prompt, k):
         thoughts = []
         for _ in range(k):
             response = openai_api_call_handler(prompt, 400, 1.1, k)
-            text = openai_choice2text_handler(response.choices[0])
+            text = openai_choice2text_handler(response["choices"][0])
             thoughts += [text]
         return thoughts
     else:
@@ -317,7 +297,7 @@ wrong = 0
 total = 0
 
 # dataset = load_dataset("gsm8k", "main")
-dataset = load_from_disk("../data/gsm8k")
+dataset = load_from_disk("./data/gsm8k")
 
 for questions_number in range(num_questions_to_solve):
     status = ["None"]
