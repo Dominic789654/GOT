@@ -4,7 +4,15 @@
 This repo is the code implementation of the **HKUSTgz DSAA6000D Graph Processing and Analytics**.  
 The course is taught by Prof. [Luo Qiong](https://www.cse.ust.hk/~luo/).
 
-## Repository structure
+## Setup Instructions
+
+1. Install the required dependencies using the command: `pip install -r requirements.txt`
+
+2. Insert your ChatGPT API key into the `./code/api_pool.py` file. If you need an API key to test the code, please contact LIU Xiang.
+
+3. Modify the `run.sh` script to select the experiment you wish to test.
+
+
 
 # Mini Survey introduction
 ## Title 
