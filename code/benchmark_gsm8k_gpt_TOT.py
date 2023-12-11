@@ -15,9 +15,11 @@ from tenacity import (
     retry,
     stop_after_attempt,
     wait_random_exponential,
+    wait_chain,
+    wait_fixed
 )  # for exponential backoff
 import datasets
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
 import requests as requests
 from api_pool import api_pool
 import re
@@ -30,7 +32,7 @@ key_pool = api_pool
 print(f"Number of api keys {len(key_pool)}")
 
 use_chat_api = True
-api_model = "gpt-3.5-turbo"
+api_model = "gpt-3.5-turbo-0301"
 
 
 @retry(
@@ -67,11 +69,25 @@ def openai_api_call_handler(prompt, max_tokens, temperature, k=1, stop=None):
             if use_chat_api:
                 messages = [{"role": "user", "content": prompt}]
                 response = completion_with_backoff(
-                    model=api_model,
-                    messages=messages,
-                    max_tokens=max_tokens,
-                    temperature=temperature,
-                    # n=k
+                    {
+                        "model": api_model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "Follow the given examples and answer the following question.",
+                            },
+                            {"role": "user", "content": messages},
+                        ],
+                        "temperature": temperature,
+                    }
+
+
+
+                    # model=api_model,
+                    # messages=messages,
+                    # max_tokens=max_tokens,
+                    # temperature=temperature,
+                    # # n=k
                 )
             else:
                 response = completion_with_backoff(
@@ -300,8 +316,8 @@ correct = 0
 wrong = 0
 total = 0
 
-dataset = load_dataset("gsm8k", "main")
-
+# dataset = load_dataset("gsm8k", "main")
+dataset = load_from_disk("../data/gsm8k")
 
 for questions_number in range(num_questions_to_solve):
     status = ["None"]
